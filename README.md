@@ -1,6 +1,7 @@
-# Montag: Book Recommender System #
+#
+Montag: Book Recommender System #
 
-By Neil Nachnani (nenachnan@purdue.edu) and Sachandhan Ganesh (ganesh9@purdue.edu)
+By Neil Nachnani (nnachnan@purdue.edu) and Sachandhan Ganesh (ganesh9@purdue.edu)
 
 ## Description ##
 
