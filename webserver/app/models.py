@@ -14,6 +14,3 @@ class User(db.Model):
 
 	def __str__(self):
 		return self.__repr__()
-
-
-class Book(db.Model)

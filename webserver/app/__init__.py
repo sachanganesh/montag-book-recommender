@@ -12,7 +12,7 @@ def create_app(config_name):
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_object(app_config[config_name])
 	app.config.from_pyfile("config.py")
-	app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://admin:pyth0nic@localhost/Book-Crossing"
+	app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://admin:pyth0nic@localhost/montag"
 
 	with app.app_context():
 		db.init_app(app)
