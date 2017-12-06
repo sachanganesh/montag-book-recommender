@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template
 from app import models
+from werkzeug import generate_password_hash, check_password_hash
 
 from . import home
 
@@ -21,10 +22,8 @@ def signUp():
         _password = request.form['inputPassword']
         # validate the received values
         if _name and _email and _password:
-                return json.dumps({'html':'<span>All fields good !!</span>'})
-        else:
-                return json.dumps({'html':'<span>Enter the required fields</span>'})
-            
+		_hashed_password = generate_password_hash(_password)
+		    
 @home.route('/showSignin')
 def showSignin():
 #       if session.get('user'):
