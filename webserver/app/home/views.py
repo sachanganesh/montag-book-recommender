@@ -5,7 +5,7 @@ from app import models
 from werkzeug import generate_password_hash, check_password_hash
 from app import db
 from . import home
-from flask import flash, redirect, render_template, url_for
+from flask import request, flash, redirect, render_template, url_for
 from flask_login import login_required, login_user, logout_user
 
 @home.route("/")
@@ -16,7 +16,7 @@ def main():
 def showSignUp():
     return render_template("home/signup.html")
 
-@home.route('/signUp',methods=['POST'])
+@home.route('/signUp', methods=['POST'])
 def signUp(): 
 	# read the posted values from the UI
 	_email = request.form['inputEmail']
@@ -24,8 +24,8 @@ def signUp():
 	# validate the received values
 	if _email and _password:
 		_hashed_password = generate_password_hash(_password)
-		addUser = models.User(email=form._email.data, password=form._hashed_password.data)
-		db.session.add(employee)
+		addUser = models.User(email=_email, password=_hashed_password)
+		db.session.add(addUser)
 		db.session.commit()
 		flash('You have successfully registered!')		
 
