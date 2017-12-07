@@ -22,7 +22,7 @@ def upgrade():
 	           existing_type=mysql.INTEGER(display_width=11),
 	           nullable=True,
 	           existing_server_default=sa.text("'0'"))
-	op.alter_column('users', 'id', primary_key=True)
+	op.alter_column('users', 'id', primary_key=True, autoincrement=True)
     # ### end Alembic commands ###
 
 
