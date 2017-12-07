@@ -17,7 +17,7 @@ def showSignUp():
     return render_template("home/signup.html")
 
 @home.route('/signUp', methods=['POST'])
-def signUp(): 
+def signUp():
 	# read the posted values from the UI
 	_email = request.form['inputEmail']
 	_password = request.form['inputPassword']
@@ -27,7 +27,9 @@ def signUp():
 		addUser = models.User(email=_email, password=_hashed_password)
 		db.session.add(addUser)
 		db.session.commit()
-		flash('You have successfully registered!')		
+		flash('You have successfully registered!')
+
+		return redirect(url_for(".main"))	
 
 @home.route('/showSignin')
 def showSignin():
