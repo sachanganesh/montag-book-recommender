@@ -9,6 +9,30 @@ class User(db.Model):
 	password = db.Column(db.String(128))
 	age = db.Column(db.Integer)
 	location = db.Column(db.String(250))
+	authenticated = db.Column(db.Boolean, default=False)
+
+	# @hybrid_method
+	def is_correct_password(self, submitted_password):
+		return self.password == submitted_password
+
+	@property
+	def is_authenticated(self):
+		"""Return True if the user is authenticated."""
+		return self.authenticated
+
+	@property
+	def is_active(self):
+		"""Always True, as all users are active."""
+		return True
+
+	@property
+	def is_anonymous(self):
+		"""Always False, as anonymous users aren't supported."""
+		return False
+
+	def get_id(self):
+		"""Return the email address to satisfy Flask-Login's requirements."""
+		return str(self.id)
 
 	def __repr__(self):
 		return "User {}".format(self.id)
