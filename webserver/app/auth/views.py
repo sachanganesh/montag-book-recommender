@@ -54,11 +54,20 @@ def logout():
 	logout_user()
 	return redirect(url_for('.login'))
 
-@auth.route("/user/<uid>/book", methods=["POST"])
+@auth.route("/user/book", methods=["POST"])
 @login_required
-def save_preference(uid):
-	rating = models.Rating(uid=uid, isbn=request.form.isbn, rating=7)
-	db.session.add(rating)
-	db.session.commit()
+def save_preference():
+	if request.form["preference"] == "like":
+		rating = models.Rating(uid=request.form["uid"], isbn=request.form["isbn"], rating=7)
+		db.session.add(rating)
+		db.session.commit()
 
-	return str(len(current_user.ratings))
+		flash("You liked {}.".format(models.Book.query.get(request.form["isbn"]).title))
+		return redirect(request.referrer)
+	else:
+		rating = models.Rating.query.get((request.form["uid"], request.form["isbn"]))
+		db.session.delete(rating)
+		db.session.commit()
+
+		flash("You un-liked {}.".format(models.Book.query.get(request.form["isbn"]).title))
+		return redirect(request.referrer)

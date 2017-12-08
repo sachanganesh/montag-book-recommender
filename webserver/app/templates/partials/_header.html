@@ -9,7 +9,7 @@
 			<ul class="navbar-nav mr-auto">
 				{% if current_user.is_authenticated %}
 					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('home.protect') }}">Protected</a>
+						<a class="nav-link" href="{{ url_for('home.book_lookup', letter='a') }}">Book Lookup</a>
 					</li>
 				{% else %}
 				{% endif %}
