@@ -5,14 +5,14 @@
 <h1>Trending Books</h1>
 <div class="row">
 {% for book in trending %}
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<div class="card">
 			<div class="card-header">
-    			{{ book.title }}
+    			<h4 class="card-title">{{ book.title }}</h4>
   			</div>
 			<img class="card-img-top" src="{{ book.img_url_m }}" />
-			<div class="card-block">
-				<h6 class="card-text">{{ book.author }}</h6>
+			<div class="card-body text-center">
+				<h6 class="card-text">By {{ book.author }}</h6>
 				<form action="{{ url_for('auth.save_preference', uid=current_user.id) }}" method="post">
 					<input type="hidden" name="uid" value="{{ current_user.id }}">
 					<input type="hidden" name="isbn" value="{{ book.isbn }}">
@@ -34,14 +34,14 @@
 <h1>Highest Rated Books</h1>
 <div class="row">
 {% for book in rated %}
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<div class="card">
 			<div class="card-header">
-    			{{ book.title }}
+    			<h4 class="card-title">{{ book.title }}</h4>
   			</div>
 			<img class="card-img-top" src="{{ book.img_url_m }}" />
-			<div class="card-block">
-				<h6 class="card-text">{{ book.author }}</h6>
+			<div class="card-body text-center">
+				<h6 class="card-text">By {{ book.author }}</h6>
 				<form action="{{ url_for('auth.save_preference', uid=current_user.id) }}" method="post">
 					<input type="hidden" name="uid" value="{{ current_user.id }}">
 					<input type="hidden" name="isbn" value="{{ book.isbn }}">
