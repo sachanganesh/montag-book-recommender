@@ -21,7 +21,7 @@
 			<div class="card-header">
     			<h4 class="card-title">{{ book.title }}</h4>
   			</div>
-			<img class="card-img-top" src="{{ book.img_url_m }}" />
+			<img class="card-img-top" src="{{ book.img_url_l }}" />
 			<div class="card-body text-center">
 				<h6 class="card-text">By {{ book.author }}</h6>
 				<form action="{{ url_for('auth.save_preference', uid=current_user.id) }}" method="post">
