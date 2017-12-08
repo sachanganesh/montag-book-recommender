@@ -2,3 +2,15 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+nav.navbar {
+	margin-bottom: 20px;
+}
+
+.lookup-breadcrumb {
+	margin-bottom: 20px;
+}
+
+.card {
+	margin-bottom: 20px;
+}

@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<nav aria-label="breadcrumb" role="navigation">
+<nav class="lookup-breadcrumb" aria-label="breadcrumb" role="navigation">
 	<ol class="breadcrumb">
 			{% for c in ascii_upper %}
 				{% if c == letter %}
@@ -15,7 +15,7 @@
 </nav>
 
 <div class="row">
-{% for book in books[:50] %}
+{% for book in books[:100] %}
 	<div class="col-sm-4">
 		<div class="card">
 			<div class="card-header">
