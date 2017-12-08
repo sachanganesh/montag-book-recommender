@@ -1,6 +1,7 @@
 from app import db
 from sqlalchemy.dialects.mysql import INTEGER
 from werkzeug.security import generate_password_hash, check_password_hash
+import pickle
 
 class User(db.Model):
 	__tablename__ = "users"
@@ -75,3 +76,8 @@ class Rating(db.Model):
 
 	def __str__(self):
 		return self.__repr__()
+
+class Recommender(object):
+	def __init__(self):
+		with open("recsys/explicit_rec.pkl", "rb") as fid:
+			self.model = pickle.load(fid)
