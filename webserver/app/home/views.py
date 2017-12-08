@@ -47,6 +47,6 @@ def top_books():
 @login_required
 def recommend():
 	rec = models.Recommender()
-	top = rec.top_rated_isbns(10000)
-	preds = rec.model.predict(current_user.id, top)
-	return render_template("home/top_books.html", recommended=preds)
+	# top = rec.top_rated_isbns(10000)
+	# preds = rec.model.predict(current_user.id, np.arange(10000))
+	return render_template("home/recommended.html", recommended=rec.recommend())
