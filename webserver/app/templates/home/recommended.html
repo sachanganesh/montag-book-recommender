@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+{% for book in recommended %}
+	<div class="col-sm-2">
+		<div class="card">
+			<div class="card-header">
+    			{{ book.title }}
+  			</div>
+			<img class="card-img-top" src="{{ book.img_url_m }}" />
+			<div class="card-block">
+				<h6 class="card-text">{{ book.author }}</h6>
+				<form action="{{ url_for('auth.save_preference', uid=current_user.id) }}" method="post">
+					<input type="hidden" name="uid" value="{{ current_user.id }}">
+					<input type="hidden" name="isbn" value="{{ book.isbn }}">
+
+					{% if book.isbn not in liked_isbns %}
+						<input type="hidden" name="preference" value="like">
+						<button type="submit" formmethod="post" class="btn btn-primary">Like</button>
+					{% else %}
+						<input type="hidden" name="preference" value="unlike">
+						<button type="submit" formmethod="post" class="btn btn-primary">Un-Like</button>
+					{% endif %}
+				</form>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+</div>
+
+{% endblock %}
