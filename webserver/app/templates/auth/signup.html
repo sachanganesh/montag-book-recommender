@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% from "helpers/_form_helpers.html" import render_field %}
+
+{% block body %}
+
+{% include 'partials/_header.html' %}
+
+<h1>Montag Book Recommendations</h1>
+<form action="{{ url_for('auth.signup') }}" method="post">
+	<dl>
+		{{ render_field(form.email, placeholder="Email address", class="form-control") }}
+		{{ render_field(form.password, placeholder="Password", class="form-control") }}
+		{{ form.csrf_token }}
+	</dl>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+</form>
+
+{% endblock %}

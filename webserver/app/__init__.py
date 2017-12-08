@@ -24,15 +24,18 @@ def create_app(config_name):
 	migrate = Migrate(app, db)
 
 	login_manager.init_app(app)
-	login_manager.login_view = "home.login"
+	login_manager.login_view = "auth.login"
 
 	from app import models
 
 	@login_manager.user_loader
 	def load_user(user_id):
-		return models.User.get(user_id)
+		return models.User.query.get(user_id)
 
 	from .home import home as home_blueprint
 	app.register_blueprint(home_blueprint)
+
+	from .auth import auth as auth_blueprint
+	app.register_blueprint(auth_blueprint)
 
 	return app
