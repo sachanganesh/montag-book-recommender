@@ -3,6 +3,7 @@ from sqlalchemy.dialects.mysql import INTEGER
 from sqlalchemy import func, desc, select
 from werkzeug.security import generate_password_hash, check_password_hash
 import pickle
+import numpy as np
 
 class User(db.Model):
 	__tablename__ = "users"
@@ -79,9 +80,9 @@ class Rating(db.Model):
 		return self.__repr__()
 
 class Recommender(object):
-	def __init__(self):
-		with open("recsys/explicit_rec.pkl", "rb") as fid:
-			self.model = pickle.load(fid)
+	# def __init__(self):
+	# 	with open("recsys/explicit_rec.pkl", "rb") as fid:
+	# 		self.model = pickle.load(fid)
 
 	def most_rated(self, n=3):
 		queried_books = db.session.query(Rating.isbn, func.count(Rating.rating).label('qty')).group_by(Rating.isbn).order_by(desc('qty')).limit(n).all()
@@ -92,10 +93,10 @@ class Recommender(object):
 		return books
 
 	def top_average_rated(self, n=3):
-		# queried_books = db.session.query(Rating.isbn,
-		# 		func.count(Rating.rating).label('qty'),
-		# 		func.avg(Rating.rating).label('avg_rating')
-		# 		).group_by(Rating.isbn).order_by(desc('avg_rating'), desc('qty')).limit(n).all()
+		queried_books = db.session.query(Rating.isbn,
+				func.count(Rating.rating).label('qty'),
+				func.avg(Rating.rating).label('avg_rating')
+				).group_by(Rating.isbn).order_by(desc('avg_rating'), desc('qty')).limit(n).all()
 
 		books = []
 		for book in queried_books:
@@ -118,5 +119,15 @@ class Recommender(object):
 		books = []
 		for book in queried_books:
 			books.append(book[0])
+
+		return books
+
+	def recommend(self, n=3):
+		queried_books = [b.isbn for b in db.session.query(Book.isbn)]
+		queried_books = np.random.choice(queried_books, n, replace=False)
+
+		books = []
+		for isbn in queried_books:
+			books.append(Book.query.get(isbn))
 
 		return books
