@@ -6,3 +6,6 @@ flask-migrate
 werkzeug
 flask-login
 wtforms
+lightfm
+numpy
+pandas
