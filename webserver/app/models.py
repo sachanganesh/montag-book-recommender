@@ -12,6 +12,8 @@ class User(db.Model):
 	location = db.Column(db.String(250))
 	authenticated = db.Column(db.Boolean, default=False)
 
+	ratings = db.relationship("Rating")
+
 	def set_password(self, password):
 		self.password = generate_password_hash(password)
 
@@ -64,8 +66,8 @@ class Book(db.Model):
 class Rating(db.Model):
 	__tablename__ = "ratings"
 
-	uid = db.Column(db.Integer, primary_key=True)
-	isbn = db.Column(db.String(13), primary_key=True)
+	uid = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
+	isbn = db.Column(db.String(13), db.ForeignKey("books.isbn"), primary_key=True)
 	rating = db.Column(db.Integer)
 
 	def __repr__(self):

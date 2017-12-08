@@ -11,12 +11,17 @@ def signup():
 	form = UserForm(request.form)
 	if request.method == "POST":
 		if form.validate_on_submit():
-			user = models.User(email=form.email.data)
-			user.set_password(form.password.data)
-			db.session.add(user)
-			db.session.commit()
-			login_user(user)
-			flash('You have successfully signed up!')
+			user = models.User.query.filter_by(email=form.email.data).first()
+			if user is not None:
+				flash('This user already exists.')
+				return redirect(url_for("home.index"))
+			else:
+				user = models.User(email=form.email.data)
+				user.set_password(form.password.data)
+				db.session.add(user)
+				db.session.commit()
+				login_user(user)
+				flash('You have successfully signed up!')
 
 		return redirect(url_for("home.index"))
 
@@ -48,3 +53,12 @@ def logout():
 	db.session.commit()
 	logout_user()
 	return redirect(url_for('.login'))
+
+@auth.route("/user/<uid>/book", methods=["POST"])
+@login_required
+def save_preference(uid):
+	rating = models.Rating(uid=uid, isbn=request.form.isbn, rating=7)
+	db.session.add(rating)
+	db.session.commit()
+
+	return str(len(current_user.ratings))

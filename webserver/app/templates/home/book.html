@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<img src="{{ book.img_url_m }}" />
+
+<h1>{{ book.title }}</h1>
+<h2>By {{ book.author }}</h1>
+
+<form action="{{ url_for('auth.save_preference', uid=current_user.id) }}" method="post">
+	<input type="hidden" name="uid" value="{{ current_user.email }}">
+	<input type="hidden" name="isbn" value="{{ book.isbn }}">
+
+	<button type="submit" formmethod="post">Like this Book</button>
+</form>
+
+{% endblock %}
