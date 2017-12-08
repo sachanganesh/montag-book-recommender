@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<nav aria-label="breadcrumb" role="navigation">
+	<ol class="breadcrumb">
+			{% for c in ascii_upper %}
+				{% if c == letter %}
+					<li class="breadcrumb-item active" aria-current="page">{{ c }}</li>
+				{% else %}
+					<li class="breadcrumb-item"><a href="{{ url_for('home.book_lookup', letter=c) }}">{{ c }}</a></li>
+				{% endif %}
+			{% endfor %}
+	</ol>
+</nav>
+
+{% for book in books[:5] %}
+<!-- card goes here -->
+<p>{{ book.title }}</p>
+<p>{{ book.author }}</p>
+<p>{{ book.publisher }}</p>
+<img src="{{ book.img_url_s }}" />
+<img src="{{ book.img_url_m }}" />
+<img src="{{ book.img_url_l }}" />
+{% endfor %}
+
+{% endblock %}

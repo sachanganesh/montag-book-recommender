@@ -28,9 +28,7 @@ def login():
 	if request.method == "POST":
 		if form.validate_on_submit():
 			user = models.User.query.filter_by(email=form.email.data).first()
-			print("GOTEM!!")
 			if user is not None and user.check_password(form.password.data):
-				print("FOUNDEM!")
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
