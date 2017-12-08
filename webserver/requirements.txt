@@ -5,3 +5,4 @@ pymysql
 flask-migrate
 werkzeug
 flask-login
+wtforms

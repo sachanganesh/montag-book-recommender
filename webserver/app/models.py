@@ -1,5 +1,6 @@
 from app import db
 from sqlalchemy.dialects.mysql import INTEGER
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
 	__tablename__ = "users"
@@ -11,9 +12,11 @@ class User(db.Model):
 	location = db.Column(db.String(250))
 	authenticated = db.Column(db.Boolean, default=False)
 
-	# @hybrid_method
-	def is_correct_password(self, submitted_password):
-		return self.password == submitted_password
+	def set_password(self, password):
+		self.password = generate_password_hash(password)
+
+	def check_password(self, password):
+		return check_password_hash(self.password, password)
 
 	@property
 	def is_authenticated(self):
