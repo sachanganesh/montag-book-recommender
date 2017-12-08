@@ -14,14 +14,28 @@
 	</ol>
 </nav>
 
-{% for book in books[:5] %}
+<div class="row">
+{% for book in books[:6] %}
 <!-- card goes here -->
-<p>{{ book.title }}</p>
-<p>{{ book.author }}</p>
-<p>{{ book.publisher }}</p>
-<img src="{{ book.img_url_s }}" />
-<img src="{{ book.img_url_m }}" />
-<img src="{{ book.img_url_l }}" />
+	<div class="col-sm-2">
+		<div class="card"> 
+			<div class="card-header">
+    			{{ book.title }}
+  			</div>
+			<img class="card-img-top" src="{{ book.img_url_m }}" />
+			<div class="card-block">
+				<h6 class="card-text">{{ book.author }}</h6>
+				<!-- <p>{{ book.author }}</p>
+				<p>{{ book.publisher }}</p> -->
+				<a href="#" class="btn btn-primary">Like</a>
+			</div>
+			<!-- <img src="{{ book.img_url_s }}" />
+			<img src="{{ book.img_url_m }}" />
+			<img src="{{ book.img_url_l }}" /> -->
+		</div>
+	</div>
+
 {% endfor %}
+</div>
 
 {% endblock %}
