@@ -11,6 +11,12 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{ url_for('home.book_lookup', letter='a') }}">Book Lookup</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('home.top_books') }}">Top Books</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('home.recommend') }}">Recommended</a>
+					</li>
 				{% else %}
 				{% endif %}
 			</ul>

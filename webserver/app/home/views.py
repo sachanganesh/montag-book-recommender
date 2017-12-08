@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_required
 from string import ascii_uppercase
+import numpy as np
 from app import models
 from . import home
 
@@ -35,3 +36,17 @@ def render_book(isbn):
 	else:
 		flash("Book does not exist.")
 		return redirect(url_for("home.book_lookup"))
+
+@home.route("/top-books")
+@login_required
+def top_books():
+	rec = models.Recommender()
+	return render_template("home/top_books.html", rated=rec.top_average_rated(), trending=rec.most_rated())
+
+@home.route("/recommended")
+@login_required
+def recommend():
+	rec = models.Recommender()
+	top = rec.top_rated_isbns(10000)
+	preds = rec.model.predict(current_user.id, top)
+	return render_template("home/top_books.html", recommended=preds)
