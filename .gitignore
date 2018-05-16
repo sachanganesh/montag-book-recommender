@@ -1,4 +1,5 @@
 .ipynb_checkpoints/
+*.sql
 __pycache__/
-webserver/sql/BX*.sql
 .DS_Store
+webserver/venv
