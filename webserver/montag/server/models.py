@@ -4,10 +4,10 @@ from django.core.validators import MinValueValidator, MaxValueValidator, URLVali
 
 class Book(models.Model):
 	isbn = 	    models.CharField(max_length=13)
-	title =     models.CharField(max_length=100)
-	author =    models.CharField(max_length=100)
+	title =     models.CharField(max_length=350)
+	author =    models.CharField(max_length=350)
 	pub_year =  models.SmallIntegerField()
-	publisher = models.CharField(max_length=100)
+	publisher = models.CharField(max_length=350)
 	img_s =     models.URLField(
 					max_length=350,
 					validators=[URLValidator]
@@ -21,10 +21,17 @@ class Book(models.Model):
 					validators=[URLValidator]
 				)
 
-
 class Rating(models.Model):
-	user =      models.ForeignKey(User, on_delete=models.DO_NOTHING)
+	user =      models.ForeignKey(User, on_delete=models.DO_NOTHING, db_constraint=False)
 	book =      models.ForeignKey(Book, on_delete=models.DO_NOTHING)
 	rating =    models.SmallIntegerField(
 					validators=[MinValueValidator(0), MaxValueValidator(10)]
 				)
+
+class Recommender(models.Model):
+	version =   models.AutoField(primary_key=True)
+	model =     models.BinaryField()
+	auc_score = models.FloatField()
+
+	class Meta:
+		ordering = ('-version',)
