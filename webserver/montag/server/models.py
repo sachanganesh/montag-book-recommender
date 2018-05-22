@@ -31,7 +31,6 @@ class Rating(models.Model):
 class Recommender(models.Model):
 	version =   models.AutoField(primary_key=True)
 	model =     models.BinaryField()
-	auc_score = models.FloatField()
 
 	class Meta:
 		ordering = ('-version',)
