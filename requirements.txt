@@ -1,6 +1,6 @@
 certifi==2018.4.16
 chardet==3.0.4
-Django==2.2.10
+Django==2.2.20
 django-environ==0.4.4
 idna==2.6
 lightfm==1.14
